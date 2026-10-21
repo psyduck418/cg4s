@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CG4S - 遊戲與應用安全通道</title>
+    <title>CG4S - 網路通道</title>
     <style>
         body, html {
             margin: 0; padding: 0; height: 100%;
@@ -31,13 +31,6 @@
             font-weight: 500;
         }
         .top-bar button:hover { background-color: #2563eb; }
-        .quick-links {
-            display: flex; gap: 8px; margin-right: 15px;
-        }
-        .quick-links button {
-            background-color: #334155; font-size: 13px; padding: 6px 12px;
-        }
-        .quick-links button:hover { background-color: #475569; }
         #toggleBtn {
             position: fixed; top: 10px; right: 10px;
             background-color: rgba(15, 23, 42, 0.8); color: #cbd5e1;
@@ -52,9 +45,6 @@
 
     <div class="top-bar" id="topBar">
         <h3 style="margin: 0; font-size: 16px; color: #38bdf8;">CG4S</h3>
-        <div class="quick-links">
-            <button onclick="quickLoad('https://www.crazygames.com')">CrazyGames</button>
-        </div>
         <input type="text" id="targetUrl" placeholder="輸入網址，例如 https://www.crazygames.com" />
         <button onclick="loadSite()">前往</button>
         <button onclick="toggleBar()" style="background-color: #334155; margin-left: 6px;">隱藏</button>
@@ -67,11 +57,6 @@
         const iframe = document.getElementById('proxyFrame');
         const urlInput = document.getElementById('targetUrl');
 
-        function quickLoad(url) {
-            urlInput.value = url;
-            loadSite();
-        }
-
         function loadSite() {
             let url = urlInput.value.trim();
             if (!url) return;
@@ -79,7 +64,6 @@
                 url = 'https://' + url;
             }
             
-            // 透過 Cloudflare 代理路由載入
             iframe.src = '/proxy?url=' + encodeURIComponent(url);
             toggleBar();
         }
